@@ -1,0 +1,15 @@
+<settings>
+  <setting>
+    <name>PLAYER_MOVING_DISTANCE</name>
+    <value>10</value>
+  </setting>
+  <setting>
+    <name>PLAYER_Y_POSITION_FROM_BOTTOM</name>
+    <value>20</value>
+  </setting>
+  <setting>
+    <name>LOGGER_VERBOSE</name>
+    <value>true</value>
+  </setting>
+</settings>
+
