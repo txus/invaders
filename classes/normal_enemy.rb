@@ -1,6 +1,8 @@
 class NormalEnemy < Enemy
   def initialize(window,x,y)
     super
+    @width = 26
+    @height = 23
     @img = Gosu::Image.new(@window, "media/normal_enemy.png", true)
     @pattern = nil
   end

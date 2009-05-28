@@ -3,13 +3,13 @@ class Player
     @window = window
     @lives = 5
     @score = 0
-    @width = 150
-    @height = 20
+    @width = 25
+    @height = 30
     @x = @y = 0
     @perk = DefaultPerk.new
     @last_shot = Gosu::milliseconds
 
-    @image = Gosu::Image.new(@window, "media/block.png", true)
+    @image = Gosu::Image.new(@window, "media/ship.png", true)
   end
 
   def place(x)

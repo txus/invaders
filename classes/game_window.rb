@@ -23,6 +23,11 @@ class GameWindow < Gosu::Window
     a.shoot
 
     @screen = :game
+
+    #bonus_caller = RandomCaller.new(10) do
+
+    #end
+
   end
 
   def draw

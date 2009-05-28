@@ -3,6 +3,7 @@ class Bullet
   @@bullets = Array.new
   def initialize(window,x,y)
     @x, @y = x, y
+    @width, @height = 3, 6
     @window = window
     @@bullets << self
     @img = nil
