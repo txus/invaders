@@ -8,7 +8,7 @@ class DoubleShotBonus < Bonus
   private
 
   def speed
-    5
+    1
   end
 
 end

@@ -14,19 +14,19 @@ class GameWindow < Gosu::Window
     @player.place :center
     @background = Gosu::Image.new(self, "media/menu.png", true)
 
-    a = NormalEnemy.new(self,50,180)
-
-    b = NormalEnemy.new(self,200,190)
-
-    b.shoot
-
-    a.shoot
+    @grid = EnemyGrid.new(@width, @height, 6, 15)
 
     @screen = :game
 
-    #bonus_caller = RandomCaller.new(10) do
+    double_shot_bonus_event = ScheduledEvent.new(20) do
+      DoubleShotBonus.new(self,rand * @width, -10)
+    end
 
-    #end
+    create_enemies_element = ScheduledEvent.new(0.2) do
+      @grid << NormalEnemy.new(self, @grid.next_available_position)
+    end
+
+
 
   end
 
@@ -53,6 +53,8 @@ class GameWindow < Gosu::Window
     if button_down? Gosu::Button::KbEscape then
       close
     end
+
+    ScheduledEvent.call_all
 
     Bullet.move_all
     Enemy.move_all

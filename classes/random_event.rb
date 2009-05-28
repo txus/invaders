@@ -1,13 +1,13 @@
-class RandomEvent
+class RandomEvent < Event
   @@random_events = Array.new
-  def initialize (pps, &block)
+  def initialize (ppm, &block)
     @ppm = ppm
     @block = block
     @@random_events << self
   end
 
   def call
-    yield @block if (rand * 60).to_i < @ppm
+    @block.call if (rand * 10000).to_i < @ppm
   end
 
   def self.call_all

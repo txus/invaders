@@ -1,9 +1,9 @@
 class Enemy
   attr_reader :x, :y
   @@enemies = Array.new
-  def initialize(window,x,y)
+  def initialize(window,x_y)
     @width, @height = 20,20
-    @x, @y = x, y
+    @x, @y = x_y[0], x_y[1]
     @window = window
     @img = nil
     @pattern = nil
