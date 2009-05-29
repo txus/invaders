@@ -18,17 +18,7 @@ class GameWindow < Gosu::Window
 
     @screen = :game
 
-    double_shot_bonus_event = ScheduledEvent.new(12) do
-      DoubleShotBonus.new(self,rand * @width, -10)
-    end
-
-    triple_shot_bonus_event = ScheduledEvent.new(20) do
-      TripleShotBonus.new(self, rand * width, -10)
-    end
-
-    double_speed_bonus_event = ScheduledEvent.new(16) do
-      DoubleSpeedBonus.new(self, rand * width, -10)
-    end
+    initialize_events
 
     @grid.cols.times do |index|
       @grid << NormalEnemy.new(self, @grid.next_available_position)
@@ -41,11 +31,6 @@ class GameWindow < Gosu::Window
     end
     @grid.cols.times do |index|
       @grid << FireEnemy.new(self, @grid.next_available_position)
-    end
-
-
-    move_enemies_event = ScheduledEvent.new(0.7) do
-      Enemy.move_all
     end
 
   end
@@ -75,6 +60,7 @@ class GameWindow < Gosu::Window
     end
 
     ScheduledEvent.call_all
+    RandomEvent.call_all
 
     Bullet.move_all
 
@@ -106,6 +92,36 @@ class GameWindow < Gosu::Window
         @player.add_bonus(bonus)
         bonus.destroy
       end
+    end
+  end
+
+  def initialize_events
+    double_shot_bonus_event = RandomEvent.new(15,0.2) do
+      DoubleShotBonus.new(self,rand * @width, -10)
+    end
+
+    triple_shot_bonus_event = RandomEvent.new(15,0.1) do
+      TripleShotBonus.new(self, rand * width, -10)
+    end
+
+    double_speed_bonus_event = RandomEvent.new(15,0.3) do
+      DoubleSpeedBonus.new(self, rand * width, -10)
+    end
+
+    renew_shooting_patterns = RandomEvent.new(10,0.8) do
+      Enemy.all.each do |enemy|
+        enemy.renew_shooting_pattern
+      end
+    end
+
+    enemies_approaching_event = ScheduledEvent.new(1.5) do
+      Enemy.all.each do |enemy|
+        enemy.approach(5)
+      end
+    end
+
+    animate_enemies_event = ScheduledEvent.new(0.7) do
+      Enemy.move_all
     end
   end
 

@@ -1,5 +1,4 @@
 class FireEnemy < Enemy
-  @@fire_enemies = []
   def initialize(window,x_y)
     super
     @width = 26
@@ -7,11 +6,6 @@ class FireEnemy < Enemy
     @img = Gosu::Image.new(@window, "media/fire_enemy.png", true)
     @pattern = nil
     @facing = :left
-    @shooting_event.destroy
-    @shooting_event = ScheduledEvent.new(rand * 70) do
-      shoot
-    end
-    @@fire_enemies << self
   end
 
   def shoot

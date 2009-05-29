@@ -9,9 +9,9 @@ class Enemy
     @pattern = nil
     @facing = nil
     @health = 1
-    @shooting_event = ScheduledEvent.new(rand * 100) do
-      shoot
-    end
+    @shooting_seconds = 30
+    @shooting_chance = 0.2
+    renew_shooting_pattern
     @@enemies << self
   end
 
@@ -26,12 +26,17 @@ class Enemy
     end
   end
 
+  def approach(distance)
+    @y += distance
+  end
+
   def draw
     @img.draw(@x,@y,1)
   end
 
   def destroy
     @shooting_event.destroy
+    @shooting_event = nil
     @@enemies.delete self
     Logger.log("Enemy died",self)
   end
@@ -39,6 +44,13 @@ class Enemy
   def shoot
     EnemyBullet.new(@window,@x + (@width / 2), @y + @height)
     Logger.log("Enemy shot bullet", self)
+  end
+
+  def renew_shooting_pattern
+    @shooting_event.destroy if @shooting_event.is_a? Event
+    @shooting_event = RandomEvent.new(rand * @shooting_seconds, @shooting_chance) do
+      shoot
+    end
   end
 
   def hurt(damage)

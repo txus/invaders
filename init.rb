@@ -28,6 +28,8 @@ require 'classes/double_shot_bonus'
 require 'classes/triple_shot_bonus'
 require 'classes/double_speed_bonus'
 
+require 'classes/score'
+
 window = GameWindow.new
 
 window.show

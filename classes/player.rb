@@ -1,5 +1,5 @@
 class Player
-  attr_accessor :width, :height, :x, :y
+  attr_accessor :width, :height, :x, :y, :score
   def initialize(window,options = {})
     @window = window
     @lives = 5
@@ -75,8 +75,13 @@ class Player
     @perk = bonus.perk.new
   end
 
+  def score(points)
+    @score += points
+    puts "Scored #{points}!"
+  end
+
   def warn
-    puts "DANGER"
+
   end
 
 private
