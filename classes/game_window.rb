@@ -22,9 +22,14 @@ class GameWindow < Gosu::Window
       DoubleShotBonus.new(self,rand * @width, -10)
     end
 
-    create_enemies_element = ScheduledEvent.new(0.2) do
+    create_enemies_event = ScheduledEvent.new(0.2) do
       @grid << NormalEnemy.new(self, @grid.next_available_position)
+      @grid << FireEnemy.new(self, @grid.next_available_position)
     end
+
+
+
+
 
 
 

@@ -1,5 +1,5 @@
 class EnemyGrid
-  attr_accessor :table
+  attr_accessor :table, :rows, :cols
   def initialize(w,h,rows,cols, options = {})
     defaults = {:x_padding => 40, :y_padding => 30}
     defaults.merge options
@@ -27,6 +27,10 @@ class EnemyGrid
         end
       end
     end
+  end
+
+  def distribution=(array)
+
   end
 
   def show

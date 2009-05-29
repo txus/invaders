@@ -17,6 +17,7 @@ require 'classes/normal_bullet'
 require 'classes/enemy_bullet'
 require 'classes/enemy'
 require 'classes/normal_enemy'
+require 'classes/fire_enemy'
 require 'classes/bonus'
 require 'classes/double_shot_bonus'
 

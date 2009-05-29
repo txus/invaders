@@ -11,5 +11,13 @@
     <name>LOGGER_VERBOSE</name>
     <value>false</value>
   </setting>
+  <setting>
+    <name>n</name>
+    <value>NormalEnemy</value>
+  </setting>
+  <setting>
+    <name>f</name>
+    <value>FireEnemy</value>
+  </setting>
 </settings>
 
