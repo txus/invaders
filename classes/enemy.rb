@@ -1,5 +1,5 @@
 class Enemy
-  attr_reader :x, :y
+  attr_reader :x, :y, :width, :height
   @@enemies = Array.new
   def initialize(window,x_y)
     @width, @height = 20,20
@@ -7,11 +7,23 @@ class Enemy
     @window = window
     @img = nil
     @pattern = nil
+    @facing = nil
+    @health = 1
+    @shooting_event = ScheduledEvent.new(rand * 100) do
+      shoot
+    end
     @@enemies << self
   end
 
   def move
-    raise NotImplementedError
+    case @facing
+    when :right
+      @x -= movement
+      @facing = :left
+    when :left
+      @x += movement
+      @facing = :right
+    end
   end
 
   def draw
@@ -19,6 +31,7 @@ class Enemy
   end
 
   def destroy
+    @shooting_event.destroy
     @@enemies.delete self
     Logger.log("Enemy died",self)
   end
@@ -26,6 +39,15 @@ class Enemy
   def shoot
     EnemyBullet.new(@window,@x + (@width / 2), @y + @height)
     Logger.log("Enemy shot bullet", self)
+  end
+
+  def hurt(damage)
+    @health -= damage
+    destroy if @health <= 0
+  end
+
+  def warn
+
   end
 
   def self.move_all

@@ -15,5 +15,6 @@ class EnemyBullet < Bullet
   def speed
     5
   end
+
 end
 

@@ -1,4 +1,4 @@
-class NormalBullet < Bullet
+class NormalBullet < PlayerBullet
   def initialize(window,x,y)
     super
     @img = Gosu::Image.new(@window, "media/normal_bullet.png", true)

@@ -18,20 +18,27 @@ class GameWindow < Gosu::Window
 
     @screen = :game
 
-    double_shot_bonus_event = ScheduledEvent.new(20) do
+    double_shot_bonus_event = ScheduledEvent.new(3) do
       DoubleShotBonus.new(self,rand * @width, -10)
     end
 
-    create_enemies_event = ScheduledEvent.new(0.2) do
+    @grid.cols.times do |index|
       @grid << NormalEnemy.new(self, @grid.next_available_position)
+    end
+    @grid.cols.times do |index|
+      @grid << FireEnemy.new(self, @grid.next_available_position)
+    end
+    @grid.cols.times do |index|
+      @grid << NormalEnemy.new(self, @grid.next_available_position)
+    end
+    @grid.cols.times do |index|
       @grid << FireEnemy.new(self, @grid.next_available_position)
     end
 
 
-
-
-
-
+    move_enemies_event = ScheduledEvent.new(0.7) do
+      Enemy.move_all
+    end
 
   end
 
@@ -62,7 +69,7 @@ class GameWindow < Gosu::Window
     ScheduledEvent.call_all
 
     Bullet.move_all
-    Enemy.move_all
+
     Bonus.move_all
 
     check_collisions
@@ -72,7 +79,26 @@ class GameWindow < Gosu::Window
   private
 
   def check_collisions
-
+    EnemyBullet.all.each do |enemy_bullet|
+      if enemy_bullet.collides?(@player) then
+        @player.hurt(enemy_bullet.power)
+        enemy_bullet.destroy
+      end
+    end
+    PlayerBullet.all.each do |player_bullet|
+      Enemy.all.each do |enemy|
+        if player_bullet.collides?(enemy) then
+          enemy.hurt(player_bullet.power)
+          player_bullet.destroy
+        end
+      end
+    end
+    Bonus.all.each do |bonus|
+      if bonus.collides?(@player) then
+        @player.add_bonus(bonus)
+        bonus.destroy
+      end
+    end
   end
 
 end

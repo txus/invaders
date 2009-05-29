@@ -1,4 +1,5 @@
 class Player
+  attr_accessor :width, :height, :x, :y
   def initialize(window,options = {})
     @window = window
     @lives = 5
@@ -6,6 +7,7 @@ class Player
     @width = 25
     @height = 30
     @x = @y = 0
+    @health = 2
     @perk = DefaultPerk.new
     @last_shot = Gosu::milliseconds
 
@@ -58,6 +60,25 @@ class Player
     @image.draw(@x,@y,1)
   end
 
+  def die
+    puts "DIED"
+    @window.close
+  end
+
+  def hurt(damage)
+    @health -= damage
+    puts "HURT"
+    die if @health <= 0
+  end
+
+  def add_bonus(bonus)
+    @perk = bonus.perk.new
+  end
+
+  def warn
+    puts "DANGER"
+  end
+
 private
 
   def _shoot(type)
@@ -66,6 +87,8 @@ private
       NormalBullet.new(@window,@x + (@width / 2), @y)
       Logger.log("Shot single bullet", self)
     when :double:
+      NormalBullet.new(@window,@x + (@width / 3), @y)
+      NormalBullet.new(@window,(@x + @width) - (@width / 3), @y)
       Logger.log("Shot double bullet", self)
     end
     @last_shot = Gosu::milliseconds
