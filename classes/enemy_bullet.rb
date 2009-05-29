@@ -1,5 +1,5 @@
 class EnemyBullet < Bullet
-  def initialize(window,x,y)
+  def initialize(window,x,y,direction = :none)
     super
     @img = Gosu::Image.new(@window, "media/enemy_bullet.png", true)
   end

@@ -18,8 +18,16 @@ class GameWindow < Gosu::Window
 
     @screen = :game
 
-    double_shot_bonus_event = ScheduledEvent.new(3) do
+    double_shot_bonus_event = ScheduledEvent.new(12) do
       DoubleShotBonus.new(self,rand * @width, -10)
+    end
+
+    triple_shot_bonus_event = ScheduledEvent.new(20) do
+      TripleShotBonus.new(self, rand * width, -10)
+    end
+
+    double_speed_bonus_event = ScheduledEvent.new(16) do
+      DoubleSpeedBonus.new(self, rand * width, -10)
     end
 
     @grid.cols.times do |index|

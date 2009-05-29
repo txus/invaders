@@ -90,6 +90,11 @@ private
       NormalBullet.new(@window,@x + (@width / 3), @y)
       NormalBullet.new(@window,(@x + @width) - (@width / 3), @y)
       Logger.log("Shot double bullet", self)
+    when :triple:
+      NormalBullet.new(@window,@x + (@width / 4), @y, :left)
+      NormalBullet.new(@window,@x + (@width / 2), @y)
+      NormalBullet.new(@window,(@x + @width) - (@width / 4), @y, :right)
+      Logger.log("Shot double bullet", self)
     end
     @last_shot = Gosu::milliseconds
   end

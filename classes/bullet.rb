@@ -1,9 +1,10 @@
 class Bullet
   attr_reader :x, :y, :power
   @@bullets = Array.new
-  def initialize(window,x,y)
+  def initialize(window,x,y,direction = :none)
     @x, @y = x, y
     @width, @height = 3, 6
+    @direction = direction
     @window = window
     @power = 1
     @@bullets << self
@@ -12,6 +13,13 @@ class Bullet
 
   def move
     @y -= speed
+    case @direction
+    when :left:
+      @x -= speed / 2
+    when :right:
+      @x += speed / 2
+    when :none:
+    end
     Logger.log("Bullet is on #{@x} - #{@y}",self)
     destroy if @y <= 0
   end
