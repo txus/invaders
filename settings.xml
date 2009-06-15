@@ -12,6 +12,10 @@
     <value>false</value>
   </setting>
   <setting>
+    <name>START_LEVEL</name>
+    <value>1</value>
+  </setting>
+  <setting>
     <name>n</name>
     <value>NormalEnemy</value>
   </setting>

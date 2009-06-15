@@ -14,24 +14,24 @@ class GameWindow < Gosu::Window
     @player.place :center
     @background = Gosu::Image.new(self, "media/menu.png", true)
 
-    @grid = EnemyGrid.new(@width, @height, 6, 15)
+    @grid = EnemyGrid.new(self,@width, @height, 2, 8)
 
     @screen = :game
 
     initialize_events
 
-    @grid.cols.times do |index|
-      @grid << NormalEnemy.new(self, @grid.next_available_position)
-    end
-    @grid.cols.times do |index|
-      @grid << FireEnemy.new(self, @grid.next_available_position)
-    end
-    @grid.cols.times do |index|
-      @grid << NormalEnemy.new(self, @grid.next_available_position)
-    end
-    @grid.cols.times do |index|
-      @grid << FireEnemy.new(self, @grid.next_available_position)
-    end
+ #   @grid.cols.times do |index|
+ #     @grid << NormalEnemy.new(self, @grid.next_available_position)
+ #   end
+ #   @grid.cols.times do |index|
+ #     @grid << FireEnemy.new(self, @grid.next_available_position)
+ #   end
+ #   @grid.cols.times do |index|
+ #     @grid << NormalEnemy.new(self, @grid.next_available_position)
+ #   end
+ #   @grid.cols.times do |index|
+ #     @grid << FireEnemy.new(self, @grid.next_available_position)
+ #   end
 
   end
 
@@ -50,7 +50,8 @@ class GameWindow < Gosu::Window
           @player.move :left
         elsif button_down? Gosu::Button::KbRight then
           @player.move :right
-        elsif button_down? Gosu::Button::KbSpace then
+        end
+        if button_down? Gosu::Button::KbSpace then
           @player.shoot
         end
       else
@@ -92,6 +93,9 @@ class GameWindow < Gosu::Window
         @player.add_bonus(bonus)
         bonus.destroy
       end
+    end
+    Enemy.all.each do |enemy|
+      @player.die if enemy.collides?(@player)
     end
   end
 

@@ -1,0 +1,13 @@
+#Level 1#
+f f f n n n n n f f f
+n 0 n 0 n 0 n 0 n 0 n
+f f f f f f f f f f f
+n n n n n n n n n n n
+f f f n n n n n f f f
+n 0 n 0 n 0 n 0 n 0 n
+
+#Level 2#
+n f f f
+n 0 n   
+f f f f 
+n n n n 
