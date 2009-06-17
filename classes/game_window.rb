@@ -87,6 +87,12 @@ class GameWindow < Gosu::Window
           player_bullet.destroy
         end
       end
+      #Bonus.all.each do |bonus|
+      #  if player_bullet.collides?(bonus) then
+      #    player_bullet.destroy
+      #    bonus.destroy
+      #  end
+      #end
     end
     Bonus.all.each do |bonus|
       if bonus.collides?(@player) then
@@ -100,15 +106,15 @@ class GameWindow < Gosu::Window
   end
 
   def initialize_events
-    double_shot_bonus_event = RandomEvent.new(15,0.2) do
+    double_shot_bonus_event = RandomEvent.new(5,0.2) do
       DoubleShotBonus.new(self,rand * @width, -10)
     end
 
-    triple_shot_bonus_event = RandomEvent.new(15,0.1) do
+    triple_shot_bonus_event = RandomEvent.new(5,0.1) do
       TripleShotBonus.new(self, rand * width, -10)
     end
 
-    double_speed_bonus_event = RandomEvent.new(15,0.3) do
+    double_speed_bonus_event = RandomEvent.new(5,0.3) do
       DoubleSpeedBonus.new(self, rand * width, -10)
     end
 

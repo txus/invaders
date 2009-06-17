@@ -4,6 +4,7 @@ class DoubleSpeedBonus < Bonus
     super
     @img = Gosu::Image.new(@window, "media/double_speed_bonus.png", true)
     @perk = DoubleSpeedPerk
+    @duration = 3
   end
 
   private

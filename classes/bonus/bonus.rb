@@ -1,10 +1,12 @@
 class Bonus
-  attr_reader :x, :y, :perk
+  attr_reader :x, :y, :width, :height, :perk, :duration
   @@bonuses = Array.new
   def initialize(window,x,y)
     @x, @y = x, y
+    @width, @height = 5,5
     @window = window
     @perk = nil
+    @duration = 4
     @@bonuses << self
   end
 

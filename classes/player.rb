@@ -8,7 +8,9 @@ class Player
     @height = 30
     @x = @y = 0
     @health = 2
+
     @perk = DefaultPerk.new
+    @old_perk = @perk
     @last_shot = Gosu::milliseconds
 
     @image = Gosu::Image.new(@window, "media/ship.png", true)
@@ -72,7 +74,16 @@ class Player
   end
 
   def add_bonus(bonus)
+    @old_perk = @perk
     @perk = bonus.perk.new
+    _perk_wear_off_after(bonus.duration)
+  end
+  
+  def remove_bonus
+    @perk = @old_perk
+  end
+  def reset_all_perks
+    @perk = DefaultPerk.new
   end
 
   def score(points)
@@ -99,9 +110,17 @@ private
       NormalBullet.new(@window,@x + (@width / 4), @y, :left)
       NormalBullet.new(@window,@x + (@width / 2), @y)
       NormalBullet.new(@window,(@x + @width) - (@width / 4), @y, :right)
-      Logger.log("Shot double bullet", self)
+      Logger.log("Shot triple bullet", self)
     end
     @last_shot = Gosu::milliseconds
+  end
+  
+  def _perk_wear_off_after(seconds)
+    e = ScheduledEvent.new(seconds) do
+      reset_all_perks
+      e.destroy
+    end
+    
   end
 
 end
