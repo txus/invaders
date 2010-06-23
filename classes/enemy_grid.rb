@@ -115,7 +115,7 @@ class EnemyGrid
         cols = chars.length unless chars.length < cols
         chars.each_with_index do |ch, index|
           case ch
-          when '0':
+          when '0' then
             types << nil
           else
             types << ch

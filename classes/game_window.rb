@@ -45,7 +45,7 @@ class GameWindow < Gosu::Window
 
   def update
     case @screen
-      when :game:
+      when :game then
         if button_down? Gosu::Button::KbLeft then
           @player.move :left
         elsif button_down? Gosu::Button::KbRight then

@@ -8,11 +8,11 @@ class EnemyFireBullet < Bullet
   def move
     @y += speed
     case @direction
-    when :left:
+    when :left then
       @x -= speed / 4
-    when :right:
+    when :right then
       @x += speed / 4
-    when :none:
+    when :none then
     end
     Logger.log("Bullet is on #{@x} - #{@y}",self)
     destroy if @y >= @window.height

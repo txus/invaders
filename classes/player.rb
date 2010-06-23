@@ -21,13 +21,13 @@ class Player
       @x = x
     elsif x.is_a? Symbol then
       case x
-      when :left:
+      when :left then
         @x = 0
         Logger.log 'Player has been placed at left', self
-      when :center:
+      when :center then
         @x = (@window.width/2) - (@width / 2)
         Logger.log('Player has been placed at center', self)
-      when :right:
+      when :right then
         @x = @window.width - @width
         Logger.log 'Player has been placed at right', self
       end
@@ -37,14 +37,14 @@ class Player
 
   def move(direction)
     case direction
-    when :left:
+    when :left then
       unless @x <= Settings.PLAYER_MOVING_DISTANCE.to_i then
         @x -= Settings.PLAYER_MOVING_DISTANCE.to_i
         Logger.log("Player has been moved to the left, now being at x=#{@x}", self)
       else
         Logger.log("Player cannot move further to the left",self)
       end
-    when :right:
+    when :right then
       unless @window.width - @x <= Settings.PLAYER_MOVING_DISTANCE.to_i then
         @x += Settings.PLAYER_MOVING_DISTANCE.to_i
         Logger.log("Player has been moved to the right, now being at x=#{@x}", self)
@@ -99,14 +99,14 @@ private
 
   def _shoot(type)
     case type
-    when :single:
+    when :single then
       NormalBullet.new(@window,@x + (@width / 2), @y)
       Logger.log("Shot single bullet", self)
-    when :double:
+    when :double then
       NormalBullet.new(@window,@x + (@width / 3), @y)
       NormalBullet.new(@window,(@x + @width) - (@width / 3), @y)
       Logger.log("Shot double bullet", self)
-    when :triple:
+    when :triple then
       NormalBullet.new(@window,@x + (@width / 4), @y, :left)
       NormalBullet.new(@window,@x + (@width / 2), @y)
       NormalBullet.new(@window,(@x + @width) - (@width / 4), @y, :right)

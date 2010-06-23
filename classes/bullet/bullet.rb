@@ -14,11 +14,11 @@ class Bullet
   def move
     @y -= speed
     case @direction
-    when :left:
+    when :left then
       @x -= speed / 2
-    when :right:
+    when :right then
       @x += speed / 2
-    when :none:
+    when :none then
     end
     Logger.log("Bullet is on #{@x} - #{@y}",self)
     destroy if @y <= 0
